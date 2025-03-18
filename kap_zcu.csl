@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<style xmlns="http://purl.org/net/xbiblio/csl" class="in-text" version="1.0">
+    <info>
+        <title>KAP ZČU</title>
+        <id>https://csl.mblazek.dev/styles/kap-zcu</id>
+        <link href="https://csl.mblazek.dev/styles/kap-zcu" rel="self"/>
+        <author>
+            <name>Marek Blažek</name>
+        </author>
+        <category citation-format="author-date"/>
+        <updated>2025-03-18T00:00:00+01:00</updated>
+    </info>
+    <locale xml:lang="cz">
+        <terms>
+            <term name="no date">nedatováno</term>
+            <term name="in">In</term>
+            <term name="page" form="short">s.</term>          
+        </terms>
+    </locale>
+    <macro name="originator">
+        <choose>
+            <if variable="author">
+                <text macro="author"/>
+            </if>
+            <else-if variable="editor">
+                <text macro="editor"/>
+            </else-if>
+        </choose>
+    </macro>
+    <macro name="container-originator">
+        <choose>
+            <if variable="container-author">
+                <text macro="container-author"/>
+            </if>
+            <else-if variable="editor">
+                <text macro="editor"/>
+            </else-if>
+        </choose>
+    </macro>
+    <macro name="author">
+        <names variable="author">
+            <name initialize="true" initialize-with="." delimiter=" – " name-as-sort-order="all"/>
+        </names>
+    </macro>
+    <macro name="container-author">
+        <names variable="container-author">
+            <name initialize="true" initialize-with="." delimiter=" – " name-as-sort-order="all"/>
+        </names>
+    </macro>
+    <macro name="editor">
+        <names variable="editor">
+            <name initialize="true" initialize-with="." delimiter =" – " name-as-sort-order="all"/>
+            <label form="short" plural="contextual" prefix=" " suffix="."/>
+        </names>
+    </macro>
+    <macro name="originator-citation">
+        <choose>
+            <if type="article-newspaper">
+                <choose>
+                    <if variable="author">
+                        <text macro="author-citation"/>
+                    </if>
+                    <else>
+                        <text variable="container-title"/>
+                    </else>
+                </choose>
+            </if>
+            <else>
+                <text macro="author-citation"/>
+            </else>
+        </choose>
+    </macro>
+    <macro name="author-citation">
+        <names variable="author">
+            <name form="short" delimiter=" – "/>
+            <substitute>
+                <names variable="editor"/>
+            </substitute>
+        </names>
+    </macro>
+    <macro name="issued">
+        <date variable="issued">
+            <date-part name="day" suffix=". "/>
+            <date-part name="month" form="numeric" suffix=". "/>
+            <date-part name="year"/>
+        </date>
+    </macro>
+    <macro name="issued-year">
+        <choose>
+            <if variable="issued">
+                <date variable="issued">
+                    <date-part name="year"/>
+                </date>
+            </if>
+            <else>
+                <text term="no date"/>
+            </else>
+        </choose>
+    </macro>
+    <macro name="title">
+        <choose>
+            <if type="book">
+                <text variable="title" font-style="italic"/>
+                <text variable="edition" font-style="italic"/>
+            </if>
+            <else-if type="chapter article-journal article-newspaper" match="any">
+                <text variable="title"/>
+            </else-if>
+            <else-if type="webpage">
+                <choose>
+                    <if variable="container-title">
+                        <text variable="title"/>
+                    </if>
+                    <else>
+                        <text variable="title" font-style="italic"/>
+                    </else>
+                </choose>
+            </else-if>
+        </choose>
+    </macro>
+    <macro name="container-title">
+        <choose>
+            <if type="chapter">
+                <text variable="container-title" font-style="italic"/>
+                <text variable="edition" font-style="italic"/>
+            </if>
+            <else-if type="article-journal article-newspaper webpage" match="any">
+                <text variable="container-title" font-style="italic"/>
+            </else-if>            
+        </choose>
+    </macro>
+    <macro name="published">
+        <group delimiter=": ">
+            <text variable="publisher-place"/>
+            <text variable="publisher"/>
+        </group>        
+    </macro>
+    <macro name="url">
+        <group delimiter=", ">
+            <text variable="URL"/>
+            <date variable="accessed">
+                <date-part name="day" suffix=". "/>
+                <date-part name="month" form="numeric" suffix=". "/>
+                <date-part name="year"/>
+            </date>
+        </group>
+    </macro>
+    <citation disambiguate-add-year-suffix="true" et-al-min="3" et-al-use-first="1">
+        <sort>
+            <key macro="originator-citation"/>
+            <key macro="issued-year"/>
+        </sort>
+        <layout prefix="(" suffix=")" delimiter="; ">
+            <group delimiter=": ">
+                <group delimiter=" ">
+                    <text macro="originator-citation"/>
+                    <text macro="issued-year"/>
+                </group>
+                <text variable="locator"/>
+            </group>
+        </layout>
+    </citation>
+    <bibliography>
+        <sort>
+            <key macro="originator"/>
+            <key macro="issued-year"/>
+            <key variable="title"/>
+        </sort>
+        <layout>
+            <choose>
+                <if type="article-newspaper webpage" match="any">
+                    <choose>
+                        <if variable="author">
+                            <group delimiter=" " suffix=". ">
+                                <text macro="author"/>
+                                <text macro="issued-year" prefix="(" suffix=")"/>
+                            </group>
+                        </if>
+                        <else>
+                            <group delimiter=" " suffix=". ">
+                                <text macro="container-title"/>
+                                <text macro="issued-year" prefix="(" suffix=")"/>
+                            </group>
+                        </else>
+                    </choose>
+                </if>
+                <else>
+                    <group delimiter=" " suffix=". ">
+                        <text macro="originator"/>
+                        <text macro="issued-year" prefix="(" suffix=")"/>                
+                    </group>
+                </else>
+            </choose>            
+            <choose>
+                <if type="book">
+                    <group delimiter=" " suffix=".">
+                        <text macro="title"/>
+                        <text macro="published" prefix="(" suffix=")"/>
+                    </group>
+                </if>
+                <else-if type="chapter">
+                    <group suffix=".">
+                        <text macro="title" suffix=". "/>
+                        <text term="in" suffix=": "/>
+                        <text macro="container-originator" suffix=", "/>
+                        <text macro="container-title"/>
+                        <text macro="published" prefix=" (" suffix=")"/>
+                        <choose>
+                            <if variable="page">
+                                <text term="page" form="short" prefix=", " suffix=" "/>
+                                <text variable="page"/>
+                            </if>
+                        </choose>
+                    </group>
+                </else-if>
+                <else-if type="article-journal">
+                    <group suffix=".">
+                        <text macro="title" suffix=". "/>
+                        <text macro="container-title"/>
+                        <text variable="volume" prefix=" "/>
+                        <text variable="issue" prefix=" (" suffix=")"/>
+                        <choose>
+                            <if variable="page">
+                                <text term="page" form="short" prefix=", " suffix=" "/>
+                                <text variable="page"/>
+                            </if>
+                        </choose>
+                    </group>
+                </else-if>
+                <else-if type="article-newspaper webpage">
+                    <group suffix=".">
+                        <choose>
+                            <if variable="author">
+                                <group>                                    
+                                    <text macro="title" suffix=". "/>
+                                    <text macro="container-title" suffix=" "/>
+                                    <text macro="issued"/>
+                                </group>
+                            </if>
+                            <else>
+                                <group>
+                                    <text macro="title" suffix=". "/>
+                                    <text macro="issued"/>
+                                </group>
+                            </else>
+                        </choose>
+                        <choose>
+                            <if variable="URL">
+                                <text macro="url" prefix=" (" suffix=")"/>
+                            </if>
+                        </choose>
+                        <choose>
+                            <if variable="page">
+                                <text term="page" form="short" prefix=", " suffix=" "/>
+                                <text variable="page"/>
+                            </if>
+                        </choose>
+                    </group>                    
+                </else-if>
+            </choose>
+        </layout>
+    </bibliography>
+</style>

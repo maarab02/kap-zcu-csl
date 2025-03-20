@@ -1,6 +1,6 @@
 # Citační styl pro KAP ZČU
 
-Tento citační soubor je určen pro studující na Katedře politologie a mezinárodních vztahů Fakulty filozofick0 Západočeské univerzity v Plzni (KAP ZČU). Umožňuje správné formátování citací a bibliografií podle [specifických požadavků této katedry](https://www.kap.zcu.cz/cs/studenti/Studentske-texty/).
+Tento citační soubor je určen pro studující na Katedře politologie a mezinárodních vztahů Fakulty filozofické Západočeské univerzity v Plzni (KAP ZČU). Umožňuje správné formátování citací a bibliografií podle [specifických požadavků této katedry](https://www.kap.zcu.cz/cs/studenti/Studentske-texty/).
 
 ## Instalace do Zotero
 

@@ -9,7 +9,7 @@
             <name>Marek Blažek</name>
         </author>
         <category citation-format="author-date" />
-        <updated>2025-03-20T16:25:00+01:00</updated>
+        <updated>2025-03-20T16:46:00+01:00</updated>
         <link href="https://www.kap.zcu.cz/cs/studenti/Studentske-texty/" rel="documentation"/>
     </info>
     <locale xml:lang="cz">
@@ -127,8 +127,10 @@
     <macro name="container-title">
         <choose>
             <if type="chapter">
-                <text variable="container-title" font-style="italic" />
-                <text variable="edition" font-style="italic" />
+                <group delimiter=". ">
+                    <text variable="container-title" font-style="italic" />
+                    <text variable="edition" font-style="italic" />
+                </group>                
             </if>
             <else-if type="article-journal article-newspaper webpage" match="any">
                 <text variable="container-title" font-style="italic" />
